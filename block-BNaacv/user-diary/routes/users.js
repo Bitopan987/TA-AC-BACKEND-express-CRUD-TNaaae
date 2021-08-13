@@ -5,11 +5,15 @@ router.get('/', (req, res) => {
   res.render('users.ejs');
 });
 
-router.get('/new', (req, res) => {});
+router.get('/new', (req, res) => {
+  res.render('userForm.ejs');
+});
 
 router.post('/', (req, res) => {});
 
-router.get('/:id', (req, res) => {});
+router.get('/:id', (req, res) => {
+  res.render('singleUser.ejs');
+});
 
 router.get('/:id/edit', (req, res) => {});
 
