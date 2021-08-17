@@ -22,10 +22,9 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.render('index.ejs');
-});
+// routing middlewares
 
+app.use('/users', indexRouter);
 app.use('/users', usersRouter);
 
 app.use((req, res, next) => {
