@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 const { dirname } = require('path');
 var path = require('path');
 var usersRouter = require('./routes/users');
-
+var indexRouter = require('./routes/index');
 // connect to database
 
 mongoose.connect(
