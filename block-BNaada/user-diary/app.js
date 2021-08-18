@@ -1,23 +1,37 @@
 var express = require('express');
+const { connect } = require('http2');
 var mongoose = require('mongoose');
+const { dirname } = require('path');
 var path = require('path');
 var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index');
+// connect to database
 
-//  connected to database
-
-mongoose.connect('mongodb://localhost/user-diary', (err) => {
-  console.log(err ? 'Connected false' : 'Connected true');
-});
+mongoose.connect(
+  'mongodb://localhost/user-diary',
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    console.log(err ? 'connected false' : 'connected true');
+  }
+);
 
 var app = express();
-
-// middlewares
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(__dirname + '/public'));
 
-app.listen(3000, () => {
-  console.log('listening to port 3k');
+// routing middlewaress
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+
+app.use((req, res, next) => {
+  res.send('Page not Found');
+});
+
+app.listen(4000, () => {
+  console.log('Listening to port 4k');
 });
