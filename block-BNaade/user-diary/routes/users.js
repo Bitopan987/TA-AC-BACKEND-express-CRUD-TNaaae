@@ -36,4 +36,12 @@ router.get('/:id/edit', (req, res, next) => {
   });
 });
 
+router.post('/:id', (req, res) => {
+  var id = req.params.id;
+  User.findByIdAndUpdate(id, req.body, (err, updatedUser) => {
+    if (err) return next(err);
+    res.redirect('/users/' + id);
+  });
+});
+
 module.exports = router;
