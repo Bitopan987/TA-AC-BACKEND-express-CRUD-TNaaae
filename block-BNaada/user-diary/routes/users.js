@@ -24,7 +24,7 @@ router.get('/:id', (req, res, next) => {
   var id = req.params.id;
   User.findById(id, (err, user) => {
     if (err) return next(err);
-    res.render('userDetails', { user: user });
+    res.render('userDetails', { user });
   });
 });
 
