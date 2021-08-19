@@ -16,6 +16,17 @@
     </header>
     <div class="container">
       <h2 class="list_header">All Users List</h2>
+      <% users.forEach(user => { %>
+      <section class="list">
+        <h2 class="list_title">Name :<%= user.name %></h2>
+        <p class="list_text">Email :<%= user.email %></p>
+        <p class="list_text">Age :<%= user.age %></p>
+        <p class="list_text">Bio :<%= user.bio.substr(0,200) + "..." %></p>
+        <a href="/users/<%= user._id %>">
+          <button class="btn-show">Show</button>
+        </a>
+      </section>
+      <% }) %>
     </div>
   </body>
 </html>

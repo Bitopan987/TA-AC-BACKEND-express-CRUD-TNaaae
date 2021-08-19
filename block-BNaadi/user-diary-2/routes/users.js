@@ -3,7 +3,10 @@ var router = express.Router();
 var User = require('../models/user');
 
 router.get('/', (req, res) => {
-  res.render('users');
+  User.find({}, (err, users) => {
+    if (err) return next(err);
+    res.render('users', { users: users });
+  });
 });
 
 router.get('/new', (req, res) => {
@@ -17,50 +20,36 @@ router.post('/', (req, res, next) => {
   });
 });
 
-// router.get('/', (req, res) => {
-//   Book.find({}, (err, books) => {
-//     if (err) return next(err);
-//     res.render('books', { books:books });
-//   });
-// });
+router.get('/:id', (req, res, next) => {
+  var id = req.params.id;
+  User.findById(id, (err, user) => {
+    if (err) return next(err);
+    res.render('userDetails', { user: user });
+  });
+});
 
-// router.get('/new', (req, res) => {
-// res.render('addBook');
-// });
+router.get('/:id/edit', (req, res, next) => {
+  var id = req.params.id;
+  User.findById(id, (err, user) => {
+    if (err) return next(err);
+    res.render('editUserForm', { user: user });
+  });
+});
 
-//
-//   // capture data
+router.post('/:id', (req, res) => {
+  var id = req.params.id;
+  User.findByIdAndUpdate(id, req.body, (err, updatedUser) => {
+    if (err) return next(err);
+    res.redirect('/users/' + id);
+  });
+});
 
-// router.get('/:id', (req, res, next) => {
-//   var id = req.params.id;
-//   Book.findById(id, (err, book) => {
-//     if (err) return next(err);
-//     res.render('bookDetails', { book: book });
-//   });
-// });
-
-// router.get('/:id/edit', (req, res, next) => {
-//   var id = req.params.id;
-//   Book.findById(id, (err, book) => {
-//     if (err) return next(err);
-//     res.render('editBookForm', { book: book });
-//   });
-// });
-
-// router.post('/:id', (req, res) => {
-//   var id = req.params.id;
-//   Book.findByIdAndUpdate(id, req.body, (err, updatedBook) => {
-//     if (err) return next(err);
-//     res.redirect('/books/' + id);
-//   });
-// });
-
-// router.get('/:id/delete', (req, res, next) => {
-//   var id = req.params.id;
-//   Book.findByIdAndDelete(id, (err, book) => {
-//     if (err) return next(err);
-//     res.redirect('/books');
-//   });
-// });
+router.get('/:id/delete', (req, res, next) => {
+  var id = req.params.id;
+  User.findByIdAndDelete(id, (err, user) => {
+    if (err) return next(err);
+    res.redirect('/users');
+  });
+});
 
 module.exports = router;
