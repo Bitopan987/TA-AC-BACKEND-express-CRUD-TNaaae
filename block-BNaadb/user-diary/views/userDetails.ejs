@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <a href="/" class="title"><h2>UserStore</h2></a>
+        <a href="/users" class="btn-store">back</a>
+      </div>
+    </header>
+    <section class="user">
+      <h2><%= user.name %></h2>
+      <p><%= user.email %></p>
+      <h3>Age: <%= user.age %></h3>
+      <a href="/users/<%= user._id %>/edit">
+        <button class="btn-show btn-edit">Edit</button>
+      </a>
+      <a href="/users/<%= user._id %>/delete">
+        <button class="btn-show btn-edit">delete</button>
+      </a>
+    </section>
+  </body>
+</html>
